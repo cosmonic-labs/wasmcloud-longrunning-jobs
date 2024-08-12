@@ -1,0 +1,10 @@
+package cosmonic:test-operation;
+
+world test-longrunning {
+    export cosmonic:longrunning-operation/client@0.1.0-draft;
+    import cosmonic:longrunning-operation/service@0.1.0-draft;
+    export wasi:http/incoming-handler@0.2.0;
+    import wasi:logging/logging;
+    import wasi:clocks/monotonic-clock@0.2.0;
+    import wasi:clocks/wall-clock@0.2.0;
+}

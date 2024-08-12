@@ -1,0 +1,7 @@
+name = "test-longrunning"
+language = "rust"
+type = "component"
+
+[component]
+wit_world = "test-longrunning"
+wasm_target = "wasm32-wasi-preview2"

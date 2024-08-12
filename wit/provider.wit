@@ -1,0 +1,6 @@
+package cosmonic:provider-longrunning-operation;
+
+world provider-longrunning-operation {
+    export cosmonic:longrunning-operation/service@0.1.0-draft;
+    import cosmonic:longrunning-operation/client@0.1.0-draft;
+}

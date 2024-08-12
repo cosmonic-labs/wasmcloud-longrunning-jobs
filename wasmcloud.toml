@@ -1,0 +1,6 @@
+name = "Long Running Operation Provider"
+language = "rust"
+type = "provider"
+
+[provider]
+vendor = "Cosmonic"

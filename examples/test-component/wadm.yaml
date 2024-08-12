@@ -1,0 +1,55 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: longrunning-job
+  annotations:
+    version: v0.0.18
+    description: "HTTP hello world demo in Rust, using the WebAssembly Component Model and WebAssembly Interfaces Types (WIT)"
+spec:
+  components:
+    - name: long-running-handler
+      type: component
+      properties:
+        image: file://./build/test_long_running_s.wasm
+      traits:
+        # Govern the spread/scheduling of the component
+        - type: spreadscaler
+          properties:
+            replicas: 50000
+        - type: link
+          properties:
+            target: operations
+            namespace: cosmonic
+            package: longrunning-operation
+            interfaces: [service, client]
+            target_config:
+              - name: operation
+                properties:
+                  operation_namespace: "test"
+                  operation_name: "test"
+
+
+    # Add a capability provider that enables HTTP access
+    - name: httpserver
+      type: capability
+      properties:
+        image: ghcr.io/wasmcloud/http-server:0.22.0
+      traits:
+        # Link the httpserver to the component, and configure the HTTP server
+        # to listen on port 8080 for incoming requests
+        - type: link
+          properties:
+            target:
+              name: long-running-handler
+            namespace: wasi
+            package: http
+            interfaces: [incoming-handler]
+            source:
+              config:
+                - name: default-http
+                  properties:
+                    address: 0.0.0.0:8080
+    - name: operations
+      type: capability
+      properties:
+        image: file://../../longrunning-provider/build/cosmonic-longrunning-operation-manager.par.gz

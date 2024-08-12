@@ -1,0 +1,4 @@
+logging = "https://github.com/WebAssembly/wasi-logging/archive/main.tar.gz"
+http = "https://github.com/WebAssembly/wasi-http/archive/v0.2.0.tar.gz"
+clocks = "https://github.com/WebAssembly/wasi-clocks/archive/v0.2.0.tar.gz"
+longrunning = "../../longrunning/wit"

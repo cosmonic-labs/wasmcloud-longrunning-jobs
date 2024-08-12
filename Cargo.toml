@@ -1,0 +1,33 @@
+[package]
+name = "cosmonic-longrunning-operation-manager"
+version = "0.1.0"
+edition = "2021"
+description = """
+A capability provider that manages long-running operations for wasmCloud components.
+"""
+
+[workspace]
+
+[badges.maintenance]
+status = "actively-developed"
+
+[dependencies]
+anyhow = "1"
+async-nats = "0.33"
+bytes = "1.6"
+futures = "0.3"
+serde = { version = "1" , features = ["derive"] }
+serde_json = "1"
+svix-ksuid = "0.8"
+tokio = { version = "1", features = [ "full" ] }
+tracing = "0.1"
+wasmcloud-provider-sdk = "0.4"
+wit-bindgen-wrpc = "0.3"
+wrpc-transport = "0.24"
+wrpc-types = { version = "0.6", features = ["serde"] }
+
+[profile.release]
+strip = true
+lto = true
+opt-level = "z"
+
